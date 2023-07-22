@@ -13,6 +13,7 @@ function formatTime(seconds) {
   return hours + ":" + minutes + ":" + seconds;
 }
 
+
 // 使用 jQuery UI 的 Spinner widget 创建滚轮选择器
 $(function() {
   $("#hours").spinner({
@@ -27,53 +28,6 @@ $(function() {
       max: 59
   });
 });
-
-document.getElementById('timer-form').addEventListener('submit', function(event) {
-  // 阻止表单的默认提交行为
-  event.preventDefault();
-
-  // 获取用户输入的时间
-  var name = document.getElementById('name').value;
-  var hours = document.getElementById('hours').value;
-  var minutes = document.getElementById('minutes').value;
-  var seconds = document.getElementById('seconds').value;
-
-  // 将时间转换为总秒数
-  var time = hours * 3600 + minutes * 60 + seconds * 1;
-
-  // 创建倒计时器的名称，使用时长作为前缀
-  var timerName = formatTime(time);
-  if (name != "") {
-      timerName += ": " + name;
-  }
-
-  // 创建新的倒计时器
-  var timerElement = document.createElement('div');
-  timerElement.classList.add('timer');
-  timerElement.innerHTML = "<div class='timer-name'>" + timerName + "</div>" + formatTime(time);
-  document.getElementById('timers').appendChild(timerElement);
-
-  // 开始倒计时
-  var timer = setInterval(function() {
-      time--;
-
-      // 更新倒计时器的显示
-      timerElement.innerHTML = "<div class='timer-name'>" + timerName + "</div>" + formatTime(time);
-
-      // 倒计时结束
-      if (time <= 0) {
-          clearInterval(timer);
-          timerElement.innerHTML = "<div class='timer-name'>" + timerName + "</div>" + 'Time is up!';
-
-          // 播放声音
-          var audio = new Audio('https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg');
-          audio.play();
-      }
-  }, 1000);
-});
-
-// 定义一个函数，将给定的秒数转换为时分秒的格式
-// ... (保持之前的代码不变)
 
 // 添加新的倒计时器的函数
 function addTimer(name, time) {
@@ -132,3 +86,4 @@ for (var i = 0; i < presetTimers.length; i++) {
       addTimer("", time);
   });
 }
+
